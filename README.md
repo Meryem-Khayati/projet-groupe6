@@ -1,17 +1,17 @@
 # Projet 6 – Delta-Hedging & Gestion du Risque
 
 Projet intégrateur du module **Finance des Marchés et ERP**
-Cycle Ingénieur – Informatique Décisionnelle et IA, ENSA Safi (Université Cadi Ayyad)
+Cycle Ingénieur – Genie Informatique et IA, ENSA Safi (Université Cadi Ayyad)
 Encadrant : Pr. Abdelilah JRAIFI – Année universitaire 2026-2027
 
 ## Membres du groupe 6
 
 | Nom | Filière |
 |---|---|
-| ISSIMOR Khaoula | IDIA3 |
-| KHEZAZ Leila | IDIA3 |
-| KHAYATI Meryem | GINF3 |
-| ER-REGUIGUE Halima | GINF3 |
+| ISSIMOR Khaoula | IDIA |
+| KHEZAZ Leila | IDIA |
+| KHAYATI Meryem | GINF |
+| ER-REGUIGUE Halima | GINF |
 
 ## Sujet
 
