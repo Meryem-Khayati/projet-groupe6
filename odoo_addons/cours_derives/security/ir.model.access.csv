@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_forward,cours.forward,model_cours_forward,base.group_user,1,1,1,1
+access_option,cours.option,model_cours_option,base.group_user,1,1,1,1
+access_hedging,cours.hedging,model_cours_hedging,base.group_user,1,1,1,1

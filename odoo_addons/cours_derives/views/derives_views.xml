@@ -1,0 +1,206 @@
+
+<odoo>
+    <!-- Vue formulaire des forwards -->
+    <record id="view_forward_form" model="ir.ui.view">
+        <field name="name">cours.forward.form</field>
+        <field name="model">cours.forward</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="S0"/>
+                        <field name="r"/>
+                        <field name="T"/>
+                        <field name="F0"/>
+                    </group>
+
+                    <group string="Valorisation du contrat">
+                        <field name="t_elapsed"/>
+                        <field name="S_t"/>
+                        <field name="value" readonly="1"/>
+                    </group>
+
+                    <group string="Detection d'arbitrage">
+                        <field name="market_price"/>
+                        <field name="arbitrage_gain" readonly="1"/>
+                        <field name="strategy" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vue liste des forwards -->
+    <record id="view_forward_tree" model="ir.ui.view">
+        <field name="name">cours.forward.tree</field>
+        <field name="model">cours.forward</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="arbitrage_gain &gt; 0.01"
+                  decoration-danger="arbitrage_gain &lt; -0.01"
+                  decoration-info="strategy == 'none'">
+                <field name="name"/>
+                <field name="S0"/>
+                <field name="r"/>
+                <field name="T"/>
+                <field name="F0"/>
+                <field name="t_elapsed"/>
+                <field name="S_t"/>
+                <field name="value"/>
+                <field name="market_price"/>
+                <field name="arbitrage_gain"/>
+                <field name="strategy"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vue de recherche des forwards -->
+    <record id="view_forward_search" model="ir.ui.view">
+        <field name="name">cours.forward.search</field>
+        <field name="model">cours.forward</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="strategy"/>
+                <filter
+                    name="arbitrages"
+                    string="Arbitrages"
+                    domain="['|', ('arbitrage_gain', '&gt;', 0.01), ('arbitrage_gain', '&lt;', -0.01)]"
+                />
+            </search>
+        </field>
+    </record>
+
+    <!-- Action des forwards -->
+    <record id="action_forward" model="ir.actions.act_window">
+        <field name="name">Forwards</field>
+        <field name="res_model">cours.forward</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_forward_search"/>
+    </record>
+
+    <!-- Menu principal -->
+    <menuitem id="menu_derives_root"
+              name="Derives"
+              sequence="10"/>
+
+    <menuitem id="menu_forward"
+              name="Forwards"
+              parent="menu_derives_root"
+              action="action_forward"/>
+
+    <!-- Vue formulaire des options -->
+    <record id="view_option_form" model="ir.ui.view">
+        <field name="name">cours.option.form</field>
+        <field name="model">cours.option</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="option_type"/>
+                        <field name="S_T"/>
+                        <field name="K"/>
+                        <field name="premium"/>
+                        <field name="payoff" readonly="1"/>
+                        <field name="profit" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vue liste des options -->
+    <record id="view_option_tree" model="ir.ui.view">
+        <field name="name">cours.option.tree</field>
+        <field name="model">cours.option</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="option_type"/>
+                <field name="K"/>
+                <field name="S_T"/>
+                <field name="premium"/>
+                <field name="payoff"/>
+                <field name="profit"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action des options -->
+    <record id="action_option" model="ir.actions.act_window">
+        <field name="name">Options</field>
+        <field name="res_model">cours.option</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu Options -->
+    <menuitem id="menu_option"
+              name="Options"
+              parent="menu_derives_root"
+              action="action_option"
+              sequence="20"/>
+
+
+
+    <!-- Vue formulaire des simulations de hedging -->
+    <record id="view_hedging_form" model="ir.ui.view">
+        <field name="name">cours.hedging.form</field>
+        <field name="model">cours.hedging</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="option_id"/>
+                        <field name="quantity"/>
+                    </group>
+                    <group string="Paramètres de couverture">
+                        <field name="pricing_volatility"/>
+                        <field name="realized_volatility"/>
+                        <field name="hedge_frequency"/>
+                    </group>
+                    <group string="Résultats">
+                        <field name="final_pnl"/>
+                        <field name="rebalance_count"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Vue liste des simulations de hedging -->
+    <record id="view_hedging_tree" model="ir.ui.view">
+        <field name="name">cours.hedging.tree</field>
+        <field name="model">cours.hedging</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="option_id"/>
+                <field name="quantity"/>
+                <field name="pricing_volatility"/>
+                <field name="realized_volatility"/>
+                <field name="hedge_frequency"/>
+                <field name="final_pnl"/>
+                <field name="rebalance_count"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action des simulations de hedging -->
+    <record id="action_hedging" model="ir.actions.act_window">
+        <field name="name">Simulations de Hedging</field>
+        <field name="res_model">cours.hedging</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu Hedging -->
+    <menuitem id="menu_hedging"
+              name="Simulations de Hedging"
+              parent="menu_derives_root"
+              action="action_hedging"
+              sequence="30"/>
+
+
+</odoo>
