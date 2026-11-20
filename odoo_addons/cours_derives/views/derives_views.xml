@@ -90,20 +90,40 @@
               action="action_forward"/>
 
     <!-- Vue formulaire des options -->
+    
+    <!-- Vue formulaire des options -->
     <record id="view_option_form" model="ir.ui.view">
         <field name="name">cours.option.form</field>
         <field name="model">cours.option</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
-                    <group>
+                    <group string="Informations générales">
                         <field name="name"/>
                         <field name="option_type"/>
-                        <field name="S_T"/>
+                    </group>
+
+                    <group string="Paramètres Black-Scholes">
+                        <field name="S0"/>
                         <field name="K"/>
-                        <field name="premium"/>
+                        <field name="r"/>
+                        <field name="T"/>
+                        <field name="sigma"/>
+                    </group>
+
+                    <group string="Valorisation">
+                        <field name="premium" readonly="1"/>
+                        <field name="S_T"/>
                         <field name="payoff" readonly="1"/>
                         <field name="profit" readonly="1"/>
+                    </group>
+
+                    <group string="Grecques">
+                        <field name="delta" readonly="1"/>
+                        <field name="gamma" readonly="1"/>
+                        <field name="vega" readonly="1"/>
+                        <field name="theta" readonly="1"/>
+                        <field name="rho" readonly="1"/>
                     </group>
                 </sheet>
             </form>
@@ -149,6 +169,12 @@
         <field name="model">cours.hedging</field>
         <field name="arch" type="xml">
             <form>
+            <header>
+    <button name="action_compute_hedging"
+            type="object"
+            string="Calculer le Hedging"
+            class="oe_highlight"/>
+</header>
                 <sheet>
                     <group>
                         <field name="name"/>
